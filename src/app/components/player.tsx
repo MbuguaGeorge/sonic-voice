@@ -84,20 +84,12 @@ const Player: React.FC<SongProps> = ({ songs }) => {
 
   return (
     <div className="bg-[#1b1b1b] min-h-[10vh] w-full flex items-center justify-center">
-      {songs ?
-        (
-          <audio ref={player} src="Khalid.mp3" preload="metadata" ></audio>
-        ) :
-
-        (
-          <audio ref={player} src="song.mp3" preload="metadata" ></audio>
-        )
-      }
+      <audio ref={player} src="song.mp3" preload="metadata" ></audio>
       <div className="flex items-center justify-between w-full px-5">
         <div className="flex items-center">
           <div>
-            {songs &&
-              <Image src={songs.album.images[0].url} alt="track-img" width={60} height={60} className="rounded-md"></Image>
+            {songs && songs[0]?.album && songs[0].album.images && songs[0].album.images[0] && songs[0].album.images[0].url &&
+              <Image src={songs[0].album.images[0].url} alt="track-img" width={60} height={60} className="rounded-md"></Image>
             }
           </div>
           <div className="px-4">
