@@ -9,7 +9,6 @@ import { cn } from "@/utils/tailwind-utils";
 import { Poppins } from "next/font/google";
 import LandingPage from "@components/landingpage";
 import Player from "@components/player";
-import SpotifyPlayer from "@components/spotifyPlayer";
 import Tracks from "@components/tracks";
 import { Track } from "./types/types";
 
@@ -116,7 +115,6 @@ export default function Home() {
 
       <div className="fixed bottom-0 left-0 right-0">
         <Player songs={track} />
-        {/* <SpotifyPlayer songs={track} /> */}
       </div>
     </main>
   );
