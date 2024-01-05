@@ -86,7 +86,7 @@ const Player: React.FC<SongProps> = ({ songs }) => {
     <div className="bg-[#1b1b1b] min-h-[10vh] w-full flex items-center justify-center">
       {songs ?
         (
-          <audio ref={player} src={songs.uri} preload="metadata" ></audio>
+          <audio ref={player} src="Khalid.mp3" preload="metadata" ></audio>
         ) :
 
         (
