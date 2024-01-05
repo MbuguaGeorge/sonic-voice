@@ -8,11 +8,24 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic':
-          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+      keyframes: {
+        pulse: {
+          '0%' : {
+            transform: 'scale(.9)'
+          },
+          '70%' : {
+            transform: 'scale(1)',
+            boxShadow: '0 0 0 50px rgba(90, 153, 212, 0)'
+          },
+          '100%' : {
+            transform: 'scale(.9)',
+            boxShadow: '0 0 0 0 rgba(90, 153, 212, 0)'
+          }
+        }
       },
+      animation: {
+        pulse: 'pulse 1.5s infinite',
+      }
     },
   },
   plugins: [],
