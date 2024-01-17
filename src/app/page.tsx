@@ -21,10 +21,10 @@ export default function Home() {
   const [currentFramework, setCurrentFramework] = useState<Framework>(
     frameworks[0]
   );
-  const [showBackground, setShowBackground] = useState(false);
-  const buttonRef = useRef<HTMLButtonElement>(null);
+  const [showBackground, setShowBackground] = useState<boolean>(false);
   const [recordingResults, setRecordingResults] = useState<Track[] | null>(null);
   const [track, setTrackDetails] = useState<Track[] | null>(null);
+  const [displaySearch, setDisplaySearch] = useState<boolean>(true);
 
   const { data: session } = useSession();
   const router = useRouter();
@@ -52,10 +52,15 @@ export default function Home() {
 
   const handleSearch = (results: Track[]) => {
     setRecordingResults(results);
+    setDisplaySearch(false)
   };
 
   const handleTrackDetails = (details: Track[]) => {
     setTrackDetails(details);
+  };
+
+  const handleDisplaySearch = (value: boolean) => {
+    setDisplaySearch(value)
   };
 
   return (
@@ -101,10 +106,10 @@ export default function Home() {
           !showBackground ? "opacity-100" : "opacity-0"
         )}
       />
-      <div className="absolute top-[15%] h-3/4 w-full">
-        {recordingResults ?
+      <div className={`absolute ${recordingResults && !displaySearch ? 'top-[15%] h-3/4' : 'top-[35%] '} w-full`}>
+        {recordingResults && !displaySearch ?
           (
-            <Tracks results={recordingResults} onTrackDetails={handleTrackDetails} />
+            <Tracks results={recordingResults} onTrackDetails={handleTrackDetails} ondisplaySearch={handleDisplaySearch} />
           )
           :
           (

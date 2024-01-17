@@ -91,6 +91,7 @@ const Player: React.FC<SongProps> = ({ songs }) => {
             {songs && songs[0]?.album && songs[0].album.images && songs[0].album.images[0] && songs[0].album.images[0].url &&
               <Image src={songs[0].album.images[0].url} alt="track-img" width={60} height={60} className="rounded-md"></Image>
             }
+            <Image src="/khalid.jpeg" alt="track-img" width={60} height={60} className="rounded-md"></Image>
           </div>
           <div className="px-4">
             <h5 className="font-semibold tracking-wide font-sans">Up All Night</h5>

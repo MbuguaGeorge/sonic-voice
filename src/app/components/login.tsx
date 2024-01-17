@@ -9,8 +9,8 @@ const Login = () => {
     return <button onClick={(e) => {
       e.preventDefault();
       signIn('spotify', { callbackUrl: "http://localhost:3000" })}} 
-      className="text-2xl text-slate-950 w-64 px-6 py-4 bg-slate-300 rounded-full hover:bg-green-800 hover:text-white">
-      Login to Spotify</button>
+      className="text-base text-white w-64 px-6 py-3 rounded-full bg-green-600 hover:bg-green-700 hover:text-white">
+      Login using Spotify</button>
   }
 };
 

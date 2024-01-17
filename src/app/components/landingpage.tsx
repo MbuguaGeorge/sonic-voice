@@ -43,7 +43,7 @@ const LandingPage: React.FC<VoiceRecordingComponentProps> = ({ onRecordingComple
   const handleSearch = async () => {
     try {
       const searchTracks = await customGet(
-        `https://api.spotify.com/v1/search?q=${speechText}&market=from_token&type=track&limit=5`,
+        `https://api.spotify.com/v1/search?q=${speechText}&market=from_token&type=track&limit=16`,
         session
       );
     
@@ -72,7 +72,7 @@ const LandingPage: React.FC<VoiceRecordingComponentProps> = ({ onRecordingComple
     if (isListening) {
       startListening();
 
-      // Stop listening after 10 seconds
+      // Stop listening after 5 seconds
       timeoutId = setTimeout(handleTimeout, 5000)
     }
 
@@ -83,10 +83,6 @@ const LandingPage: React.FC<VoiceRecordingComponentProps> = ({ onRecordingComple
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isListening, stopListening, startListening]);
 
-  if (isListening) {
-    console.log(speechText)
-  }
-
   const handleClick = () => {
     setListening(true)
   };
@@ -96,7 +92,8 @@ const LandingPage: React.FC<VoiceRecordingComponentProps> = ({ onRecordingComple
       <div className={`flex items-baseline justify-center z-10`}>
         <h1 className="text-3xl max-w-3xl text-center leading-snug mr-20">
           {!isListening && "Hi, What would you like to listen to?"}
-          {isListening && "Listening..."}
+          {isListening && speechText.length < 1 && "Listening..."}
+          {isListening && speechText.length > 1 && `${speechText}...`}
         </h1>
         <div onClick={handleClick} className={cn(`pulse transition-colors duration-200 flex justify-center items-center animate-pulse ${isListening ? 'h-24' : 'h-36'} ${isListening ? 'w-24' : 'w-36'} rounded-full cursor-pointer ${isListening && 'bg-[#5a99d4] animate-pulse'}`, {
             "bg-purple-300": currentFramework === "qwik" && !isListening,

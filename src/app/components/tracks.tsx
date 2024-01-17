@@ -3,15 +3,16 @@
 import React, { useState, useEffect }  from "react";
 import { Track } from "../types/types";
 import Image from "next/image";
-import { FaPlay } from "react-icons/fa";
+import { FaPlay, FaTimes } from "react-icons/fa";
 import { IoMdPause } from "react-icons/io";
 
 interface TrackComponentProps {
   results: Track[];
   onTrackDetails: (details: Track[]) => void;
+  ondisplaySearch: (value: boolean) => void;
 }
 
-const Tracks: React.FC<TrackComponentProps> = ({results, onTrackDetails}) => {
+const Tracks: React.FC<TrackComponentProps> = ({results, onTrackDetails, ondisplaySearch}) => {
   const [isPlaying, setPlaying] = useState<boolean[]>(Array(results.length).fill(false));
   const [track, setTrack] = useState<Track[] | null>(null);
 
@@ -31,12 +32,18 @@ const Tracks: React.FC<TrackComponentProps> = ({results, onTrackDetails}) => {
   };
 
   useEffect(() => {
-    console.log(results)
     setTrack(results)
-  }, [results])
+  }, [results]);
+
+  const closeTrack = () => {
+    ondisplaySearch(true)
+  };
 
   return (
-    <div className="flex justify-center w-full h-full bg-[#111] p-5">
+    <div className="flex flex-wrap justify-center w-full h-full bg-[#111] p-5">
+      <div className="absolute right-5 -top-10">
+        <button className=" bg-white text-black border p-1 text-sm rounded-md" onClick={closeTrack}><FaTimes fontSize={20} /></button>
+      </div>
       {track?.map((song: any, index: number ) => (
         <div key={index} className="relative w-48 h-72 bg-[#1d1d1d] m-4 rounded-md cursor-pointer hover:bg-[#343434] transition-bg duration-300 group">
           <div className="flex justify-center items-center py-4">

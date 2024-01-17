@@ -128,3 +128,11 @@ body {
   cursor: pointer;
   border-radius: 50%;
 }
+
+section .hero {
+  background: linear-gradient(to top, rgba(4, 4, 4, 0.7), rgba(12, 12, 12, 0.7)), url(../../public/img.jpg) center no-repeat;
+  background-size: cover;
+  min-height: 100vh;
+  width: 100%;
+  position: relative;
+}
