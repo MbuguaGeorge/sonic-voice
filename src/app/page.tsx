@@ -33,7 +33,6 @@ export default function Home() {
     if (session === null) {
       router.push('/login');
     }
-    console.log(session)
   }, [session, router]);
 
   useEffect(() => {

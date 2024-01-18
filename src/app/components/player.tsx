@@ -11,7 +11,7 @@ import Image from "next/image";
 import '../globals.css';
 
 interface SongProps {
-  songs: Track[] | null;
+  songs: Track | null;
 }
 
 const Player: React.FC<SongProps> = ({ songs }) => {
@@ -35,7 +35,7 @@ const Player: React.FC<SongProps> = ({ songs }) => {
     player.current!.volume = currentVolume / 100;
 
   }, [player?.current?.onloadedmetadata, player?.current?.readyState, currentVolume]);
-
+  
   const time = (secs: number) => {
     const minutes = Math.floor(secs / 60);
     const minutes_lapse = minutes < 10 ? `0${minutes}` : `${minutes}`;
@@ -84,18 +84,32 @@ const Player: React.FC<SongProps> = ({ songs }) => {
 
   return (
     <div className="bg-[#1b1b1b] min-h-[10vh] w-full flex items-center justify-center">
-      <audio ref={player} src="song.mp3" preload="metadata" ></audio>
+      {songs && songs?.preview_url ?
+        <audio ref={player} src={songs?.preview_url} preload="metadata" ></audio>
+      :
+        <audio ref={player} src="song.mp3" preload="metadata" ></audio>
+      }
       <div className="flex items-center justify-between w-full px-5">
         <div className="flex items-center">
           <div>
-            {songs && songs[0]?.album && songs[0].album.images && songs[0].album.images[0] && songs[0].album.images[0].url &&
-              <Image src={songs[0].album.images[0].url} alt="track-img" width={60} height={60} className="rounded-md"></Image>
+            {songs && songs?.album && songs.album.images && songs.album.images[0] && songs.album.images[0].url ?
+              <Image src={songs.album.images[0].url} alt="track-img" width={60} height={60} className="rounded-md"></Image>
+              :
+              <Image src="/khalid.jpeg" alt="track-img" width={60} height={60} className="rounded-md"></Image>
             }
-            <Image src="/khalid.jpeg" alt="track-img" width={60} height={60} className="rounded-md"></Image>
           </div>
           <div className="px-4">
-            <h5 className="font-semibold tracking-wide font-sans">Up All Night</h5>
-            <p className="text-gray-300 font-normal text-sm font-sans">Khalid</p>
+            {songs && songs?.artists && songs?.artists[0] && songs?.artists[0].name ?
+              <>              
+                <h5 className="font-semibold tracking-wide font-sans">{songs?.name}</h5>
+                <p className="text-gray-300 font-normal text-sm font-sans">{songs?.artists[0].name}</p>
+              </>
+              :
+              <>              
+                <h5 className="font-semibold tracking-wide font-sans">Up All Night</h5>
+                <p className="text-gray-300 font-normal text-sm font-sans">Khalid</p>
+              </>
+            }
           </div>
         </div>
 
@@ -130,7 +144,11 @@ const Player: React.FC<SongProps> = ({ songs }) => {
               ref={progressBar}
               onChange={changeRange}
             />
-            <div className="font-Akshar font-semibold text-xs tracking-wider ml-5">{(duration && !isNaN(duration)) && time(duration)}</div>
+            {songs && songs?.duration_ms ?
+              <div className="font-Akshar font-semibold text-xs tracking-wider ml-5">0.29</div>
+            :
+              <div className="font-Akshar font-semibold text-xs tracking-wider ml-5">{(duration && !isNaN(duration)) && time(duration)}</div>
+            }
           </div>
         </div>
 
